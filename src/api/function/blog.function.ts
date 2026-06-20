@@ -180,14 +180,15 @@ export const fetchPublishedBlogsFns = async () => {
     return {
       success: true,
       message: "Published blogs fetched successfully",
-      data,
+      data: data ?? [],
     };
   } catch (error) {
-    const err = error as { message: string };
+    const err = error as Error;
 
     return {
       success: false,
       message: err.message || "Failed to fetch blogs",
+      data: [],
     };
   }
 };

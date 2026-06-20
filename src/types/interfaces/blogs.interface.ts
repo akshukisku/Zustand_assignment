@@ -54,6 +54,7 @@ export interface BlogState {
 
   setBlog: (blog: Blog | null) => void;
   clearBlog: () => void;
+  getPublishedBlogs: () => Promise<any>;
 }
 export interface BlogPayload {
   title: string;

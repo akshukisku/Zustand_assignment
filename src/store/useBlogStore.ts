@@ -1,4 +1,4 @@
-import { addBlogFns, blogStatusChangeFns, deleteBlogFns, fetchAdminBlogsFns, updateBlogFns } from "@/api/function/blog.function";
+import { addBlogFns, blogStatusChangeFns, deleteBlogFns, fetchAdminBlogsFns, fetchPublishedBlogsFns, updateBlogFns } from "@/api/function/blog.function";
 import { BlogPayload, BlogState } from "@/types/interfaces/blogs.interface";
 import { create } from "zustand";
 
@@ -243,6 +243,38 @@ clearBlog: () => {
     return {
       success: false,
       message: err.message,
+    };
+  } finally {
+    set({
+      isLoading: false,
+    });
+  }
+},
+getPublishedBlogs: async () => {
+  set({
+    isLoading: true,
+    isError: null,
+  });
+
+  try {
+    const res = await fetchPublishedBlogsFns();
+
+    set({
+      blogs: res.data || [],
+    });
+
+    return res;
+  } catch (error) {
+    const err = error as { message: string };
+
+    set({
+      isError: err.message,
+    });
+
+    return {
+      success: false,
+      message: err.message,
+      data: [],
     };
   } finally {
     set({
