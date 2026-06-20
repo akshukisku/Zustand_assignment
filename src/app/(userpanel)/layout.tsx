@@ -7,12 +7,16 @@ const MainLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <html>
-      <body>
-        <Navbar/>
-        {children}
+    <html lang="en">
+      <body className="min-h-screen overflow-x-hidden">
+        <Navbar />
+
+        <main className="w-full">
+          {children}
+        </main>
       </body>
     </html>
   );
 };
+
 export default MainLayout;
